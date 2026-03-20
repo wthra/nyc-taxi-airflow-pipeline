@@ -1,0 +1,87 @@
+version: '3.8'
+
+# ---------------------------------------------------------
+# ส่วนตั้งค่าพื้นฐานสำหรับ Airflow (ตัวแปรที่ใช้ร่วมกัน)
+# ---------------------------------------------------------
+x-airflow-common:
+  &airflow-common
+  image: apache/airflow:2.8.2
+  environment: &airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+    _PIP_ADDITIONAL_REQUIREMENTS: pymysql
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./logs:/opt/airflow/logs
+    - ./plugins:/opt/airflow/plugins
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+services:
+  # 1. Database สำหรับเก็บข้อมูลระบบของ Airflow
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+
+  # 2. ตัว Setup เริ่มต้น (รันครั้งเดียวเพื่อสร้างฐานข้อมูลและ User)
+  airflow-init:
+    <<: *airflow-common
+    command: version
+    environment:
+      <<: *airflow-common-env
+      _AIRFLOW_DB_UPGRADE: 'true'
+      _AIRFLOW_WWW_USER_CREATE: 'true'
+      _AIRFLOW_WWW_USER_USERNAME: admin
+      _AIRFLOW_WWW_USER_PASSWORD: admin
+
+  # 3. Webserver (หน้าต่าง UI ที่เราจะเปิดในเบราว์เซอร์)
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - "8081:8080"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: always
+
+  # 4. Scheduler (หัวใจหลักที่ทำหน้าที่สั่งให้ DAG รัน)
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    restart: always
+  
+    # 5. Database MySQL สำหรับโปรเจกต์ Taxi ของคุณ
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345 # <--- ต้องตรงกับ MYSQL_PASSWORD ใน Airflow Variables
+      MYSQL_DATABASE: taxi_db             # <--- สร้างฐานข้อมูลชื่อนี้ให้เลยตอนรัน
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-db-volume:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres-db-volume:
+  mysql-db-volume:

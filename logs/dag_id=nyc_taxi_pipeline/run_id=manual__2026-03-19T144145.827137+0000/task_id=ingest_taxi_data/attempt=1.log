@@ -1,0 +1,38 @@
+[2026-03-19T14:41:46.578+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: nyc_taxi_pipeline.ingest_taxi_data manual__2026-03-19T14:41:45.827137+00:00 [queued]>
+[2026-03-19T14:41:46.585+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: nyc_taxi_pipeline.ingest_taxi_data manual__2026-03-19T14:41:45.827137+00:00 [queued]>
+[2026-03-19T14:41:46.586+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2026-03-19T14:41:46.597+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): ingest_taxi_data> on 2026-03-19 14:41:45.827137+00:00
+[2026-03-19T14:41:46.603+0000] {standard_task_runner.py:60} INFO - Started process 696 to run task
+[2026-03-19T14:41:46.606+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'nyc_taxi_pipeline', 'ingest_taxi_data', 'manual__2026-03-19T14:41:45.827137+00:00', '--job-id', '10', '--raw', '--subdir', 'DAGS_FOLDER/nyc_taxi_pipeline.py', '--cfg-path', '/tmp/tmp53ebfe1a']
+[2026-03-19T14:41:46.610+0000] {standard_task_runner.py:88} INFO - Job 10: Subtask ingest_taxi_data
+[2026-03-19T14:41:46.658+0000] {task_command.py:423} INFO - Running <TaskInstance: nyc_taxi_pipeline.ingest_taxi_data manual__2026-03-19T14:41:45.827137+00:00 [running]> on host db190ac810d3
+[2026-03-19T14:41:46.740+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='nyc_taxi_pipeline' AIRFLOW_CTX_TASK_ID='ingest_taxi_data' AIRFLOW_CTX_EXECUTION_DATE='2026-03-19T14:41:45.827137+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-19T14:41:45.827137+00:00'
+[2026-03-19T14:41:46.742+0000] {nyc_taxi_pipeline.py:38} INFO - กำลังดาวน์โหลดข้อมูล (ครั้งที่ 1)...
+[2026-03-19T14:41:48.259+0000] {nyc_taxi_pipeline.py:38} INFO - กำลังดาวน์โหลดข้อมูล (ครั้งที่ 2)...
+[2026-03-19T14:41:49.321+0000] {nyc_taxi_pipeline.py:38} INFO - กำลังดาวน์โหลดข้อมูล (ครั้งที่ 3)...
+[2026-03-19T14:41:50.389+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/opt/airflow/dags/nyc_taxi_pipeline.py", line 40, in ingest_taxi_data
+    r.raise_for_status()
+  File "/home/airflow/.local/lib/python3.8/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://data.cityofnewyork.us/api/views/4c9m-wp7t/rows.csv
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/nyc_taxi_pipeline.py", line 47, in ingest_taxi_data
+    raise AirflowException(f"ดาวน์โหลดล้มเหลว: {e}")
+airflow.exceptions.AirflowException: ดาวน์โหลดล้มเหลว: 404 Client Error: Not Found for url: https://data.cityofnewyork.us/api/views/4c9m-wp7t/rows.csv
+[2026-03-19T14:41:50.418+0000] {taskinstance.py:1149} INFO - Marking task as UP_FOR_RETRY. dag_id=nyc_taxi_pipeline, task_id=ingest_taxi_data, execution_date=20260319T144145, start_date=20260319T144146, end_date=20260319T144150
+[2026-03-19T14:41:50.427+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 10 for task ingest_taxi_data (ดาวน์โหลดล้มเหลว: 404 Client Error: Not Found for url: https://data.cityofnewyork.us/api/views/4c9m-wp7t/rows.csv; 696)
+[2026-03-19T14:41:50.445+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-03-19T14:41:50.459+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

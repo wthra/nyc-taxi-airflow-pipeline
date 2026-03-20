@@ -1,0 +1,14 @@
+[2026-03-19T14:47:54.235+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: nyc_taxi_pipeline.ingest_taxi_data manual__2026-03-19T14:47:53.707812+00:00 [queued]>
+[2026-03-19T14:47:54.241+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: nyc_taxi_pipeline.ingest_taxi_data manual__2026-03-19T14:47:53.707812+00:00 [queued]>
+[2026-03-19T14:47:54.241+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2026-03-19T14:47:54.251+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): ingest_taxi_data> on 2026-03-19 14:47:53.707812+00:00
+[2026-03-19T14:47:54.256+0000] {standard_task_runner.py:60} INFO - Started process 783 to run task
+[2026-03-19T14:47:54.259+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'nyc_taxi_pipeline', 'ingest_taxi_data', 'manual__2026-03-19T14:47:53.707812+00:00', '--job-id', '11', '--raw', '--subdir', 'DAGS_FOLDER/nyc_taxi_pipeline.py', '--cfg-path', '/tmp/tmpvktzybkx']
+[2026-03-19T14:47:54.261+0000] {standard_task_runner.py:88} INFO - Job 11: Subtask ingest_taxi_data
+[2026-03-19T14:47:54.304+0000] {task_command.py:423} INFO - Running <TaskInstance: nyc_taxi_pipeline.ingest_taxi_data manual__2026-03-19T14:47:53.707812+00:00 [running]> on host db190ac810d3
+[2026-03-19T14:47:54.359+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='nyc_taxi_pipeline' AIRFLOW_CTX_TASK_ID='ingest_taxi_data' AIRFLOW_CTX_EXECUTION_DATE='2026-03-19T14:47:53.707812+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-19T14:47:53.707812+00:00'
+[2026-03-19T14:47:54.360+0000] {nyc_taxi_pipeline.py:38} INFO - กำลังดาวน์โหลดข้อมูล (ครั้งที่ 1)...
+[2026-03-19T14:47:56.343+0000] {python.py:202} INFO - Done. Returned value was: /tmp/nyc_taxi_raw.csv
+[2026-03-19T14:47:56.356+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=nyc_taxi_pipeline, task_id=ingest_taxi_data, execution_date=20260319T144753, start_date=20260319T144754, end_date=20260319T144756
+[2026-03-19T14:47:56.403+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-03-19T14:47:56.421+0000] {taskinstance.py:3309} INFO - 1 downstream tasks scheduled from follow-on schedule check

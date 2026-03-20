@@ -1,0 +1,66 @@
+[2026-03-19T14:07:57.941+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: nyc_taxi_pipeline.ingest_taxi_data scheduled__2026-03-18T00:00:00+00:00 [queued]>
+[2026-03-19T14:07:57.949+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: nyc_taxi_pipeline.ingest_taxi_data scheduled__2026-03-18T00:00:00+00:00 [queued]>
+[2026-03-19T14:07:57.949+0000] {taskinstance.py:2193} INFO - Starting attempt 2 of 3
+[2026-03-19T14:07:57.960+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): ingest_taxi_data> on 2026-03-18 00:00:00+00:00
+[2026-03-19T14:07:57.965+0000] {standard_task_runner.py:60} INFO - Started process 267 to run task
+[2026-03-19T14:07:57.967+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'nyc_taxi_pipeline', 'ingest_taxi_data', 'scheduled__2026-03-18T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/nyc_taxi_pipeline.py', '--cfg-path', '/tmp/tmpry1l6_wt']
+[2026-03-19T14:07:57.970+0000] {standard_task_runner.py:88} INFO - Job 5: Subtask ingest_taxi_data
+[2026-03-19T14:07:58.016+0000] {task_command.py:423} INFO - Running <TaskInstance: nyc_taxi_pipeline.ingest_taxi_data scheduled__2026-03-18T00:00:00+00:00 [running]> on host db190ac810d3
+[2026-03-19T14:07:58.099+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='nyc_taxi_pipeline' AIRFLOW_CTX_TASK_ID='ingest_taxi_data' AIRFLOW_CTX_EXECUTION_DATE='2026-03-18T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-18T00:00:00+00:00'
+[2026-03-19T14:07:58.100+0000] {nyc_taxi_pipeline.py:38} INFO - กำลังดาวน์โหลดข้อมูล (ครั้งที่ 1)...
+[2026-03-19T14:07:59.254+0000] {nyc_taxi_pipeline.py:38} INFO - กำลังดาวน์โหลดข้อมูล (ครั้งที่ 2)...
+[2026-03-19T14:08:00.383+0000] {nyc_taxi_pipeline.py:38} INFO - กำลังดาวน์โหลดข้อมูล (ครั้งที่ 3)...
+[2026-03-19T14:08:01.423+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/opt/airflow/dags/nyc_taxi_pipeline.py", line 40, in ingest_taxi_data
+    r.raise_for_status()
+  File "/home/airflow/.local/lib/python3.8/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://data.cityofnewyork.us/api/views/4c9m-wp7t/rows.csv
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/nyc_taxi_pipeline.py", line 47, in ingest_taxi_data
+    raise AirflowException(f"ดาวน์โหลดล้มเหลว: {e}")
+airflow.exceptions.AirflowException: ดาวน์โหลดล้มเหลว: 404 Client Error: Not Found for url: https://data.cityofnewyork.us/api/views/4c9m-wp7t/rows.csv
+[2026-03-19T14:08:01.460+0000] {taskinstance.py:1149} INFO - Marking task as UP_FOR_RETRY. dag_id=nyc_taxi_pipeline, task_id=ingest_taxi_data, execution_date=20260318T000000, start_date=20260319T140757, end_date=20260319T140801
+[2026-03-19T14:08:01.469+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 5 for task ingest_taxi_data (ดาวน์โหลดล้มเหลว: 404 Client Error: Not Found for url: https://data.cityofnewyork.us/api/views/4c9m-wp7t/rows.csv; 267)
+[2026-03-19T14:08:01.487+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-03-19T14:08:01.503+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-03-19T14:50:15.926+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: nyc_taxi_pipeline.ingest_taxi_data scheduled__2026-03-18T00:00:00+00:00 [queued]>
+[2026-03-19T14:50:15.933+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: nyc_taxi_pipeline.ingest_taxi_data scheduled__2026-03-18T00:00:00+00:00 [queued]>
+[2026-03-19T14:50:15.933+0000] {taskinstance.py:2193} INFO - Starting attempt 2 of 3
+[2026-03-19T14:50:15.943+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): ingest_taxi_data> on 2026-03-18 00:00:00+00:00
+[2026-03-19T14:50:15.948+0000] {standard_task_runner.py:60} INFO - Started process 224 to run task
+[2026-03-19T14:50:15.951+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'nyc_taxi_pipeline', 'ingest_taxi_data', 'scheduled__2026-03-18T00:00:00+00:00', '--job-id', '27', '--raw', '--subdir', 'DAGS_FOLDER/nyc_taxi_pipeline.py', '--cfg-path', '/tmp/tmp7dzeko9t']
+[2026-03-19T14:50:15.954+0000] {standard_task_runner.py:88} INFO - Job 27: Subtask ingest_taxi_data
+[2026-03-19T14:50:15.999+0000] {task_command.py:423} INFO - Running <TaskInstance: nyc_taxi_pipeline.ingest_taxi_data scheduled__2026-03-18T00:00:00+00:00 [running]> on host 4d6a2a421282
+[2026-03-19T14:50:16.053+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='nyc_taxi_pipeline' AIRFLOW_CTX_TASK_ID='ingest_taxi_data' AIRFLOW_CTX_EXECUTION_DATE='2026-03-18T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-18T00:00:00+00:00'
+[2026-03-19T14:50:16.055+0000] {nyc_taxi_pipeline.py:38} INFO - กำลังดาวน์โหลดข้อมูล (ครั้งที่ 1)...
+[2026-03-19T14:50:16.191+0000] {python.py:202} INFO - Done. Returned value was: /tmp/nyc_taxi_raw.csv
+[2026-03-19T14:50:16.204+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=nyc_taxi_pipeline, task_id=ingest_taxi_data, execution_date=20260318T000000, start_date=20260319T145015, end_date=20260319T145016
+[2026-03-19T14:50:16.244+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-03-19T14:50:16.260+0000] {taskinstance.py:3309} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-03-19T15:22:21.537+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: nyc_taxi_pipeline.ingest_taxi_data scheduled__2026-03-18T00:00:00+00:00 [queued]>
+[2026-03-19T15:22:21.543+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: nyc_taxi_pipeline.ingest_taxi_data scheduled__2026-03-18T00:00:00+00:00 [queued]>
+[2026-03-19T15:22:21.544+0000] {taskinstance.py:2193} INFO - Starting attempt 2 of 3
+[2026-03-19T15:22:21.555+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): ingest_taxi_data> on 2026-03-18 00:00:00+00:00
+[2026-03-19T15:22:21.560+0000] {standard_task_runner.py:60} INFO - Started process 246 to run task
+[2026-03-19T15:22:21.564+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'nyc_taxi_pipeline', 'ingest_taxi_data', 'scheduled__2026-03-18T00:00:00+00:00', '--job-id', '41', '--raw', '--subdir', 'DAGS_FOLDER/nyc_taxi_pipeline.py', '--cfg-path', '/tmp/tmpg2s4ek81']
+[2026-03-19T15:22:21.568+0000] {standard_task_runner.py:88} INFO - Job 41: Subtask ingest_taxi_data
+[2026-03-19T15:22:21.620+0000] {task_command.py:423} INFO - Running <TaskInstance: nyc_taxi_pipeline.ingest_taxi_data scheduled__2026-03-18T00:00:00+00:00 [running]> on host 6e440277664a
+[2026-03-19T15:22:21.722+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='nyc_taxi_pipeline' AIRFLOW_CTX_TASK_ID='ingest_taxi_data' AIRFLOW_CTX_EXECUTION_DATE='2026-03-18T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-18T00:00:00+00:00'
+[2026-03-19T15:22:21.724+0000] {nyc_taxi_pipeline.py:38} INFO - กำลังดาวน์โหลดข้อมูล (ครั้งที่ 1)...
+[2026-03-19T15:22:22.214+0000] {python.py:202} INFO - Done. Returned value was: /tmp/nyc_taxi_raw.csv
+[2026-03-19T15:22:22.226+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=nyc_taxi_pipeline, task_id=ingest_taxi_data, execution_date=20260318T000000, start_date=20260319T152221, end_date=20260319T152222
+[2026-03-19T15:22:22.275+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-03-19T15:22:22.291+0000] {taskinstance.py:3309} INFO - 1 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,36 @@
+[2026-03-19T15:16:02.596+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: nyc_taxi_pipeline.load_taxi_model scheduled__2026-03-18T00:00:00+00:00 [queued]>
+[2026-03-19T15:16:02.602+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: nyc_taxi_pipeline.load_taxi_model scheduled__2026-03-18T00:00:00+00:00 [queued]>
+[2026-03-19T15:16:02.603+0000] {taskinstance.py:2193} INFO - Starting attempt 3 of 4
+[2026-03-19T15:16:02.612+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): load_taxi_model> on 2026-03-18 00:00:00+00:00
+[2026-03-19T15:16:02.616+0000] {standard_task_runner.py:60} INFO - Started process 189 to run task
+[2026-03-19T15:16:02.619+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'nyc_taxi_pipeline', 'load_taxi_model', 'scheduled__2026-03-18T00:00:00+00:00', '--job-id', '38', '--raw', '--subdir', 'DAGS_FOLDER/nyc_taxi_pipeline.py', '--cfg-path', '/tmp/tmpf1ali8cu']
+[2026-03-19T15:16:02.621+0000] {standard_task_runner.py:88} INFO - Job 38: Subtask load_taxi_model
+[2026-03-19T15:16:02.657+0000] {task_command.py:423} INFO - Running <TaskInstance: nyc_taxi_pipeline.load_taxi_model scheduled__2026-03-18T00:00:00+00:00 [running]> on host 2e5f56e9d1e2
+[2026-03-19T15:16:02.711+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='nyc_taxi_pipeline' AIRFLOW_CTX_TASK_ID='load_taxi_model' AIRFLOW_CTX_EXECUTION_DATE='2026-03-18T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='3' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-18T00:00:00+00:00'
+[2026-03-19T15:16:02.722+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/nyc_taxi_pipeline.py", line 109, in load_taxi_model
+    df = pd.read_csv(transform_path)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 912, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 577, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 1407, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 1661, in _make_engine
+    self.handles = get_handle(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/common.py", line 859, in get_handle
+    handle = open(
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/nyc_taxi_transformed.csv'
+[2026-03-19T15:16:02.731+0000] {taskinstance.py:1149} INFO - Marking task as UP_FOR_RETRY. dag_id=nyc_taxi_pipeline, task_id=load_taxi_model, execution_date=20260318T000000, start_date=20260319T151602, end_date=20260319T151602
+[2026-03-19T15:16:02.741+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 38 for task load_taxi_model ([Errno 2] No such file or directory: '/tmp/nyc_taxi_transformed.csv'; 189)
+[2026-03-19T15:16:02.752+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-03-19T15:16:02.763+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check
