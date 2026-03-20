@@ -1,0 +1,16 @@
+[2026-03-20T17:28:00.600+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: nyc_taxi_pipeline_advanced.cleanup_temp_files manual__2026-03-20T17:27:54.898714+00:00 [queued]>
+[2026-03-20T17:28:00.607+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: nyc_taxi_pipeline_advanced.cleanup_temp_files manual__2026-03-20T17:27:54.898714+00:00 [queued]>
+[2026-03-20T17:28:00.607+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2026-03-20T17:28:00.624+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): cleanup_temp_files> on 2026-03-20 17:27:54.898714+00:00
+[2026-03-20T17:28:00.629+0000] {standard_task_runner.py:60} INFO - Started process 267 to run task
+[2026-03-20T17:28:00.631+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'nyc_taxi_pipeline_advanced', 'cleanup_temp_files', 'manual__2026-03-20T17:27:54.898714+00:00', '--job-id', '12', '--raw', '--subdir', 'DAGS_FOLDER/nyc_taxi_pipeline.py', '--cfg-path', '/tmp/tmp8vgcyyy8']
+[2026-03-20T17:28:00.633+0000] {standard_task_runner.py:88} INFO - Job 12: Subtask cleanup_temp_files
+[2026-03-20T17:28:00.676+0000] {task_command.py:423} INFO - Running <TaskInstance: nyc_taxi_pipeline_advanced.cleanup_temp_files manual__2026-03-20T17:27:54.898714+00:00 [running]> on host a1f64738d93c
+[2026-03-20T17:28:00.725+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='nyc_taxi_pipeline_advanced' AIRFLOW_CTX_TASK_ID='cleanup_temp_files' AIRFLOW_CTX_EXECUTION_DATE='2026-03-20T17:27:54.898714+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-20T17:27:54.898714+00:00'
+[2026-03-20T17:28:00.726+0000] {nyc_taxi_pipeline.py:131} INFO - 🗑️ ลบไฟล์ชั่วคราวทิ้งแล้ว: /tmp/nyc_taxi_raw.csv
+[2026-03-20T17:28:00.727+0000] {nyc_taxi_pipeline.py:131} INFO - 🗑️ ลบไฟล์ชั่วคราวทิ้งแล้ว: /tmp/nyc_taxi_clean.csv
+[2026-03-20T17:28:00.728+0000] {nyc_taxi_pipeline.py:131} INFO - 🗑️ ลบไฟล์ชั่วคราวทิ้งแล้ว: /tmp/nyc_taxi_transformed.csv
+[2026-03-20T17:28:00.728+0000] {python.py:202} INFO - Done. Returned value was: None
+[2026-03-20T17:28:00.736+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=nyc_taxi_pipeline_advanced, task_id=cleanup_temp_files, execution_date=20260320T172754, start_date=20260320T172800, end_date=20260320T172800
+[2026-03-20T17:28:00.765+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-03-20T17:28:00.775+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,16 @@
+[2026-03-20T17:27:59.859+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: nyc_taxi_pipeline_advanced.generate_summary_report scheduled__2026-03-19T00:00:00+00:00 [queued]>
+[2026-03-20T17:27:59.868+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: nyc_taxi_pipeline_advanced.generate_summary_report scheduled__2026-03-19T00:00:00+00:00 [queued]>
+[2026-03-20T17:27:59.869+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2026-03-20T17:27:59.880+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): generate_summary_report> on 2026-03-19 00:00:00+00:00
+[2026-03-20T17:27:59.886+0000] {standard_task_runner.py:60} INFO - Started process 261 to run task
+[2026-03-20T17:27:59.891+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'nyc_taxi_pipeline_advanced', 'generate_summary_report', 'scheduled__2026-03-19T00:00:00+00:00', '--job-id', '10', '--raw', '--subdir', 'DAGS_FOLDER/nyc_taxi_pipeline.py', '--cfg-path', '/tmp/tmp6gw0dxeh']
+[2026-03-20T17:27:59.894+0000] {standard_task_runner.py:88} INFO - Job 10: Subtask generate_summary_report
+[2026-03-20T17:27:59.965+0000] {task_command.py:423} INFO - Running <TaskInstance: nyc_taxi_pipeline_advanced.generate_summary_report scheduled__2026-03-19T00:00:00+00:00 [running]> on host a1f64738d93c
+[2026-03-20T17:28:00.033+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='nyc_taxi_pipeline_advanced' AIRFLOW_CTX_TASK_ID='generate_summary_report' AIRFLOW_CTX_EXECUTION_DATE='2026-03-19T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-19T00:00:00+00:00'
+[2026-03-20T17:28:00.078+0000] {nyc_taxi_pipeline.py:116} INFO - รายงานสรุปประจำวัน:
+ total_trips  total_revenue  avg_fare  avg_speed_mph report_date
+        3667       44050.55 12.012694      14.598333  2026-03-20
+[2026-03-20T17:28:00.079+0000] {python.py:202} INFO - Done. Returned value was: {'total_trips': 3667, 'total_revenue': 44050.55, 'avg_fare': 12.012694300518136, 'avg_speed_mph': 14.598332541280312, 'report_date': '2026-03-20'}
+[2026-03-20T17:28:00.101+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=nyc_taxi_pipeline_advanced, task_id=generate_summary_report, execution_date=20260319T000000, start_date=20260320T172759, end_date=20260320T172800
+[2026-03-20T17:28:00.146+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-03-20T17:28:00.167+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check
